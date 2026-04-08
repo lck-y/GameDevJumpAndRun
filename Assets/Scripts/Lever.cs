@@ -9,6 +9,8 @@ public class SmoothLever : MonoBehaviour
     private bool playerInRange = false;
     private float currentInterpolationTime = 0.0f;
     private InputAction interactAction;
+    
+    private bool interactPressed = false;
 
     [SerializeField] private float switchTime;
     [SerializeField] private Transform onPosition;
@@ -80,10 +82,19 @@ public class SmoothLever : MonoBehaviour
         this.StartCoroutine(this.InterpolateLeverCoroutine());
     }
 
+    void Update()
+    {
+        if (this.interactAction.WasPressedThisFrame())
+        {
+            this.interactPressed = true;
+        }
+    }
+
     void FixedUpdate()
     {
-        if (this.playerInRange && this.interactAction.WasPressedThisFrame() && !this.interpolating)
+        if (this.playerInRange && this.interactPressed && !this.interpolating)
         {
+            this.interactPressed = false;
             this.ToggleLever();
         }
     }

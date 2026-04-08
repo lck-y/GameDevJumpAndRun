@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
     private Vector3 jumpVelocity;
     private Vector3 characterGravity;
     private Vector3 platformVelocity;
-
+    
     void Start()
     {
         this.controller = this.GetComponent<CharacterController>();

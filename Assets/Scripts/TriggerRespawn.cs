@@ -14,6 +14,11 @@ public class RespawnTrigger : MonoBehaviour
         }
     }
 
+    public void SetRespawnPoint(Transform newPoint)
+    {
+        this.respawnPoint = newPoint;
+    }
+
     void Respawn(CharacterController cc)
     {
         cc.enabled = false;

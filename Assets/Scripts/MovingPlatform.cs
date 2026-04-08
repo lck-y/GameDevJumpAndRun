@@ -7,20 +7,25 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private Vector3 start;
     [SerializeField] private Vector3 end;
     
-    private bool isActive = true;
+    [SerializeField] private bool startsActive = true;
+    private bool isActive = false;
+    private float elapsedTime = 0.0f;
+    
     private Vector3 velocity;
     private Vector3 lastPosition;
 
     void Start()
     {
         lastPosition = this.transform.localPosition;
+        this.isActive = startsActive;
     }
     void FixedUpdate()
     {
         if (!isActive) return;
-        float pingPong = Mathf.PingPong(Time.fixedTime * this.platformSpeed, 1.0f);
+        elapsedTime += Time.deltaTime;
+        float pingPong = Mathf.PingPong(elapsedTime * this.platformSpeed, 1.0f);
         var newPosition = Vector3.Lerp(this.start, this.end, pingPong);
-        this.velocity = (newPosition - this.transform.localPosition) / Time.fixedDeltaTime;
+        this.velocity = (newPosition - this.transform.localPosition) / Time.deltaTime;
         this.transform.localPosition = newPosition;
         lastPosition = newPosition;
     }
@@ -28,6 +33,11 @@ public class MovingPlatform : MonoBehaviour
     public void SetActive(bool active)
     {
         this.isActive = active;
+        if (active)
+        {
+            this.elapsedTime = 0.0f;
+            this.transform.localPosition = this.start;
+        }
     }
 
     public Vector3 GetVelocity()
