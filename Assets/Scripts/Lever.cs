@@ -84,7 +84,7 @@ public class SmoothLever : MonoBehaviour
 
     void Update()
     {
-        if (this.interactAction.WasPressedThisFrame())
+        if (this.playerInRange && this.interactAction.WasPressedThisFrame())
         {
             this.interactPressed = true;
         }

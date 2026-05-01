@@ -25,7 +25,7 @@ public class MovingPlatform : MonoBehaviour
         elapsedTime += Time.deltaTime;
         float pingPong = Mathf.PingPong(elapsedTime * this.platformSpeed, 1.0f);
         var newPosition = Vector3.Lerp(this.start, this.end, pingPong);
-        this.velocity = (newPosition - this.transform.localPosition) / Time.deltaTime;
+        this.velocity = (newPosition - this.transform.localPosition) / Time.fixedDeltaTime;
         this.transform.localPosition = newPosition;
         lastPosition = newPosition;
     }
@@ -33,11 +33,6 @@ public class MovingPlatform : MonoBehaviour
     public void SetActive(bool active)
     {
         this.isActive = active;
-        if (active)
-        {
-            this.elapsedTime = 0.0f;
-            this.transform.localPosition = this.start;
-        }
     }
 
     public Vector3 GetVelocity()

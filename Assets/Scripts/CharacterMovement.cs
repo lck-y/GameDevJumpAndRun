@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
 
+    [SerializeField] private LayerMask platformLayer;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float gravity;
     [SerializeField] private float characterSpeed;
@@ -58,7 +59,7 @@ public class Character : MonoBehaviour
     Vector3 GetPlatformVelocity()
     {
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 2.0f))
+        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 2.0f, platformLayer))
         {
             MovingPlatform platform = hit.collider.GetComponent<MovingPlatform>();
             if (platform != null)
