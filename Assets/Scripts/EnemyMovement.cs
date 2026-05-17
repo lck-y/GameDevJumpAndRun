@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     private float stuckTimer = 5f;
     
     [SerializeField] private LayerMask platformLayer;
+    [SerializeField] private float damagePerSecond = 10f;
     
     void Awake()
     {
@@ -51,5 +54,16 @@ public class EnemyMovement : MonoBehaviour
         Debug.Log(wallThere);
         */
     }
-    
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            var c = other.GetComponentInChildren<Character>();
+            if (c != null)
+            {
+                c.InflictDamage(damagePerSecond * Time.fixedDeltaTime);
+            }
+        }
+    }
 }

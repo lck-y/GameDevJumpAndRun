@@ -7,22 +7,19 @@ public class RespawnTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        CharacterController cc = other.gameObject.GetComponent<CharacterController>();
-        if (cc != null)
+        Character c = other.gameObject.GetComponent<Character>();
+        if (c != null)
         {
-            Respawn(cc);
+            c.InflictDamage(25f);
+            CharacterController cc = other.gameObject.GetComponent<CharacterController>();
+            cc.enabled = false;
+            cc.transform.position = respawnPoint.position;
+            cc.enabled = true;
         }
     }
 
     public void SetRespawnPoint(Transform newPoint)
     {
         this.respawnPoint = newPoint;
-    }
-
-    void Respawn(CharacterController cc)
-    {
-        cc.enabled = false;
-        cc.transform.position = respawnPoint.position;
-        cc.enabled = true;
     }
 }

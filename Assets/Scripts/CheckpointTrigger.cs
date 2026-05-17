@@ -11,6 +11,7 @@ public class CheckpointTrigger : MonoBehaviour
         if (cc != null)
         {
             respawnTrigger.SetRespawnPoint(checkpointPosition);
+            cc.GetComponent<Character>().spawnPosition = checkpointPosition.position;
         }
     }
 }
